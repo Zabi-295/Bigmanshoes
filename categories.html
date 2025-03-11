@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Man Shoes - Categories</title>
+    <style>
+        /* Basic Styling */
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+        background: #333;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+    }
+
+    .nav-links li {
+        position: relative;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 10px;
+        display: block;
+    }
+
+    /* Dropdown */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background: white;
+        color: black;
+        min-width: 150px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        top: 40px;
+        left: 0;
+    }
+
+    .dropdown-content li {
+        display: block;
+    }
+
+    .dropdown-content a {
+        padding: 10px;
+        display: block;
+        color: black;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Responsive Navbar */
+    .menu-icon {
+        display: none;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background: #333;
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+        }
+
+        .nav-links li {
+            width: 100%;
+        }
+
+        .dropdown-content {
+            position: relative;
+            top: 0;
+            width: 100%;
+        }
+
+        .nav-links.show {
+            display: flex;
+        }
+
+        .menu-icon {
+            display: block;
+        }
+    }
+        /* Grid Container */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .shoe-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .shoe-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .shoe-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Professional Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: block;
+            margin: 15px auto 0;
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .shoe-card img {
+            width: 100%;
+    height: 270px;
+    border-radius: 10px;
+}
+.shoeImage{
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="navbar">
+            <div class="logo">Big Man Shoes</div>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+            <ul class="nav-links">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./categories.html">Categories</a></li>
+                <li><a href="./newarival.html">New Arrivals</a></li>
+                <li><a href="./Bestseller.html">Best Sellers</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+    
+                <li class="dropdown">
+                    <a href="#">Men ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" onclick="showCategory('men-boots')">Boots</a></li>
+                        <li><a href="#" onclick="showCategory('men-sneakers')">Sneakers</a></li>
+                    </ul>
+                </li>
+    
+                <li class="dropdown">
+                    <a href="#">Women ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" onclick="showCategory('women-heels')">Heels</a></li>
+                        <li><a href="#" onclick="showCategory('women-sandals')">Sandals</a></li>
+                    </ul>
+                </li>
+    
+                <li class="dropdown">
+                    <a href="#">Kids ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" onclick="showCategory('kids-school')">School Shoes</a></li>
+                        <li><a href="#" onclick="showCategory('kids-sports')">Sports Shoes</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="grid-container" id="shoeContainer"></div>
+
+    <!-- Professional Modal -->
+    <div class="modal" id="shoeModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="shoeName"></h2>
+            <img id="shoeImage" src="" alt="">
+            <p><strong>Description:</strong> <span id="shoeDescription"></span></p>
+            <p><strong>Size:</strong> <span id="shoeSize"></span></p>
+            <a id="whatsappLink" class="btn" target="_blank">Order on WhatsApp</a>
+        </div>
+    </div>
+    
+    <script>
+        function toggleMenu() {
+            document.querySelector(".nav-links").classList.toggle("show");
+        }
+    
+        const shoes = [
+            { category: "men-boots", name: " Black Leather Boot", img: "./boots.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "men-boots", name: " Mustard Leather Boot", img: "./boot1.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "men-boots", name:  " Black Leather Boot", img: "./boot2.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "men-boots", name:  " Mustard Leather Boot", img: "./boot3.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "men-boots", name: " Green Leather Boot", img: "./boot4.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "men-boots", name:  " Gray Leather Boot", img: "./boot6.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "men-boots", name: " Brown Leather Boot", img: "./boot7.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "men-boots", name: " Red Leather Boot", img: "./boot8.jpg", desc: "Stylish boot.", size: "40-45" },
+            // { category: "men-boots", name: "Leather Boot", img: "./boot5.jpg", desc: "Stylish boot.", size: "40-45" },
+            { category: "women-heels", name: "High Heel", img: "heel1.jpg", desc: "Elegant heel.", size: "36-42" },
+            { category: "women-heels", name: "Low Heel", img: "heel2.jpg", desc: "Elegant heel.", size: "36-42" },
+            { category: "women-heels", name: "Green Heel", img: "heel3.jpg", desc: "Elegant heel.", size: "36-42" },
+            { category: "women-heels", name: "Mustard  Heel", img: "heel4.jpg", desc: "Elegant heel.", size: "36-42" },
+            { category: "women-heels", name: "Black Heel", img: "heel.jpg", desc: "Elegant heel.", size: "36-42" },
+            { category: "kids-school", name: "School Shoes", img: "school4.jpg", desc: "Comfortable shoes.", size: "30-38" },
+            { category: "kids-school", name: "School Shoes", img: "school2.jpg", desc: "Comfortable shoes.", size: "30-38" },
+            { category: "kids-school", name: "School Shoes", img: "school3.jpg", desc: "Comfortable shoes.", size: "30-38" },
+            { category: "kids-school", name: "School Shoes", img: "school3.jpg", desc: "Comfortable shoes.", size: "30-38" },
+        ];
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            showAllProducts(); // Initially show all products
+        });
+    
+        function showAllProducts() {
+            const shoeContainer = document.getElementById("shoeContainer");
+            shoeContainer.innerHTML = ""; // Clear previous items
+            shoes.forEach(shoe => {
+                const shoeCard = document.createElement("div");
+                shoeCard.classList.add("shoe-card");
+                shoeCard.innerHTML = `<img src="${shoe.img}" alt="${shoe.name}"><h3>${shoe.name}</h3>`;
+                shoeCard.onclick = () => openModal(shoe);
+                shoeContainer.appendChild(shoeCard);
+            });
+        }
+    
+        function showCategory(category) {
+            const shoeContainer = document.getElementById("shoeContainer");
+            shoeContainer.innerHTML = "";
+            const filteredShoes = shoes.filter(shoe => shoe.category === category);
+            
+            if (filteredShoes.length === 0) {
+                shoeContainer.innerHTML = "<p>No products found for this category.</p>";
+                return;
+            }
+    
+            filteredShoes.forEach(shoe => {
+                const shoeCard = document.createElement("div");
+                shoeCard.classList.add("shoe-card");
+                shoeCard.innerHTML = `<img src="${shoe.img}" alt="${shoe.name}"><h3>${shoe.name}</h3>`;
+                shoeCard.onclick = () => openModal(shoe);
+                shoeContainer.appendChild(shoeCard);
+            });
+        }
+    
+        function openModal(shoe) {
+            document.getElementById("shoeModal").style.display = "flex";
+            document.getElementById("shoeName").textContent = shoe.name;
+            document.getElementById("shoeImage").src = shoe.img;
+            document.getElementById("shoeDescription").textContent = shoe.desc;
+            document.getElementById("shoeSize").textContent = shoe.size;
+    
+            // WhatsApp Link
+            let whatsappMessage = `Hello, I'm interested in purchasing ${shoe.name}. Can you provide more details?`;
+            document.getElementById("whatsappLink").href = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
+        }
+    
+        function closeModal() {
+            document.getElementById("shoeModal").style.display = "none";
+        }
+    
+    </script>
+    
+
+</body>
+</html>
